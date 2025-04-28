@@ -88,6 +88,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion() {
@@ -126,37 +127,45 @@
 
     processOrder() {
       const thisProduct = this;
-    
+
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
-    
+
       let price = thisProduct.data.price;
-    
+
       for (let paramId in thisProduct.data.params) {
         const param = thisProduct.data.params[paramId];
         console.log(paramId, param);
-    
+
         for (let optionId in param.options) {
           const option = param.options[optionId];
           console.log(optionId, option);
-    
-          // check if there is param with a name of paramId in formData and if it includes optionId
+
+          
+          const optionImage = thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`);
+          
+          if (optionImage) {
+            
+            if (formData[paramId] && formData[paramId].includes(optionId)) {
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            } else {
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          }
+
+          
           if (formData[paramId] && formData[paramId].includes(optionId)) {
-            // check if the option is not default
             if (!option.default) {
-              // add option price to price variable
               price += option.price;
             }
           } else {
-            // check if the option is default
             if (option.default) {
-              // reduce price variable
               price -= option.price;
             }
           }
         }
       }
-    
+
       thisProduct.priceElem.innerHTML = price;
     }
   }
