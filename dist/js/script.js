@@ -199,9 +199,9 @@
         }
       }
   
+      thisProduct.priceSingle = price; 
       price *= thisProduct.amountWidget.value;
-      thisProduct.priceSingle = price / thisProduct.amountWidget.value; 
-      thisProduct.priceElem.innerHTML = thisProduct.priceSingle;
+      thisProduct.priceElem.innerHTML = price;
     }
   
     addToCart() {
@@ -318,7 +318,7 @@
   
     announce() {
       const thisWidget = this;
-      const event = new CustomEvent('upadated', { 
+      const event = new CustomEvent('updated', { 
         bubbles: true
       });
       thisWidget.element.dispatchEvent(event);
@@ -447,20 +447,15 @@
   
   const app = {
     init: function () {
-      const thisApp = this;
-  
-      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart));
-      thisApp.initMenu();
+      this.cart = new Cart(document.querySelector(select.containerOf.cart));
+      this.initMenu();
     },
   
     initMenu: function () {
-      const thisApp = this;
-  
       for (let productData in dataSource.products) {
         new Product(productData, dataSource.products[productData]);
       }
     },
   };
-  
   app.init();
 }
