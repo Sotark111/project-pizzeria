@@ -76,7 +76,11 @@
     cart: {
       defaultDeliveryFee: 20,
     },
-    // CODE ADDED END
+    db: {
+      url: '//localhost:3131',
+      products: 'products',
+      orders: 'orders',
+    },
   };
   
   const templates = {
@@ -482,15 +486,43 @@
   
   const app = {
     init: function () {
-      this.cart = new Cart(document.querySelector(select.containerOf.cart));
-      this.initMenu();
+      const thisApp = this;
+      thisApp.initData();
+      thisApp.initCart(); // Ensure cart is initialized here
+    },
+  
+    initCart: function () {
+      const thisApp = this;
+      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart)); // Initialize the cart
+    },
+  
+    initData: function () {
+      const thisApp = this;
+      thisApp.data = {};
+  
+      const url = settings.db.url + '/' + settings.db.products;
+      fetch(url)
+        .then(function (rawResponse) {
+          return rawResponse.json();
+        })
+        .then(function (parsedResponse) {
+          console.log('parsedResponse', parsedResponse);
+          thisApp.data.products = parsedResponse;
+          thisApp.initMenu();
+        });
+  
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
   
     initMenu: function () {
-      for (let productData in dataSource.products) {
-        new Product(productData, dataSource.products[productData]);
+      const thisApp = this;
+      for (let productData of thisApp.data.products) {
+        new Product(productData.id, productData);
       }
-    },
+    }
   };
+  
+  
+
   app.init();
 }
