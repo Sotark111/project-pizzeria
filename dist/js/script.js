@@ -466,12 +466,13 @@
     init: function () {
       const thisApp = this;
       thisApp.initData();
-      thisApp.initCart(); // Upewnij się, że koszyk jest zainicjowany
+      thisApp.initCart(); 
+      thisApp.initActions();
     },
 
     initCart: function () {
       const thisApp = this;
-      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart)); // Zainicjowanie koszyka
+      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart)); 
     },
 
     initData: function () {
@@ -490,7 +491,18 @@
         });
 
       console.log('thisApp.data', JSON.stringify(thisApp.data));
-    },
+
+            },
+    initActions: function () {
+  const orderForm = document.querySelector(select.cart.form);
+  if (orderForm) {
+    orderForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      
+      console.log
+    });
+  }
+},
 
     initMenu: function () {
       const thisApp = this;
@@ -499,6 +511,7 @@
       }
     }
   };
+  
 
   app.init();
 }
