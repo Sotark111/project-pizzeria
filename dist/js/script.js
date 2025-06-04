@@ -6,7 +6,7 @@
   const select = {
     templateOf: {
       menuProduct: '#template-menu-product',
-      cartProduct: '#template-cart-product', // Dodano szablon produktu w koszyku
+      cartProduct: '#template-cart-product', 
     },
     containerOf: {
       menu: '#product-list',
@@ -27,7 +27,7 @@
     },
     widgets: {
       amount: {
-        input: 'input.amount', // Zmieniono na input.amount
+        input: 'input.amount', 
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
@@ -467,7 +467,7 @@
       const thisApp = this;
       thisApp.initData();
       thisApp.initCart(); 
-      thisApp.initActions();
+      
     },
 
     initCart: function () {
@@ -493,16 +493,10 @@
       console.log('thisApp.data', JSON.stringify(thisApp.data));
 
             },
-    initActions: function () {
-  const orderForm = document.querySelector(select.cart.form);
-  if (orderForm) {
-    orderForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      
-      console.log
-    });
-  }
-},
+    
+   
+ 
+
 
     initMenu: function () {
       const thisApp = this;
@@ -510,7 +504,36 @@
         new Product(productData.id, productData);
       }
     }
+    
   };
+  document.addEventListener('DOMContentLoaded', function () {
+  const orderForm = document.querySelector('.cart__order');
+
+  if (orderForm) {
+    orderForm.addEventListener('submit', function (event) {
+      event.preventDefault(); 
+
+      
+      const phone = orderForm.querySelector('input[name="phone"]').value;
+      const address = orderForm.querySelector('input[name="address"]').value;
+
+    
+      if (!phone || !address) {
+        alert('Uzupełnij numer telefonu i adres!');
+        return;
+      }
+
+     
+      console.log('Zamówienie złożone!');
+      console.log('Telefon:', phone);
+      console.log('Adres:', address);
+
+      
+      orderForm.reset();
+    });
+  }
+});
+  
   
 
   app.init();
