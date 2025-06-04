@@ -488,12 +488,12 @@
     init: function () {
       const thisApp = this;
       thisApp.initData();
-      thisApp.initCart(); // Ensure cart is initialized here
+      thisApp.initCart(); 
     },
   
     initCart: function () {
       const thisApp = this;
-      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart)); // Initialize the cart
+      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart));
     },
   
     initData: function () {
@@ -521,6 +521,34 @@
       }
     }
   };
+  document.addEventListener('DOMContentLoaded', function () {
+  const orderForm = document.querySelector('.cart__order');
+
+  if (orderForm) {
+    orderForm.addEventListener('submit', function (event) {
+      event.preventDefault(); 
+
+      
+      const phone = orderForm.querySelector('input[name="phone"]').value;
+      const address = orderForm.querySelector('input[name="address"]').value;
+
+    
+      if (!phone || !address) {
+        alert('Uzupełnij numer telefonu i adres!');
+        return;
+      }
+
+     
+      console.log('Zamówienie złożone!');
+      console.log('Telefon:', phone);
+      console.log('Adres:', address);
+
+      
+      orderForm.reset();
+    });
+  }
+});
+  
   
   
 
