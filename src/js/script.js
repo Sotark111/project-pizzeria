@@ -6,11 +6,7 @@
   const select = {
     templateOf: {
       menuProduct: '#template-menu-product',
-<<<<<<< HEAD
       cartProduct: '#template-cart-product', 
-=======
-      cartProduct: '#template-cart-product', // Dodano szablon produktu w koszyku
->>>>>>> 0a7ba1cad28c8f2be8e79d32b1fba4b611bd0766
     },
     containerOf: {
       menu: '#product-list',
@@ -31,11 +27,7 @@
     },
     widgets: {
       amount: {
-<<<<<<< HEAD
         input: 'input.amount', 
-=======
-        input: 'input.amount', // Zmieniono na input.amount
->>>>>>> 0a7ba1cad28c8f2be8e79d32b1fba4b611bd0766
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
@@ -474,21 +466,13 @@
     init: function () {
       const thisApp = this;
       thisApp.initData();
-<<<<<<< HEAD
       thisApp.initCart(); 
       
-=======
-      thisApp.initCart(); // Upewnij się, że koszyk jest zainicjowany
->>>>>>> 0a7ba1cad28c8f2be8e79d32b1fba4b611bd0766
     },
 
     initCart: function () {
       const thisApp = this;
-<<<<<<< HEAD
       thisApp.cart = new Cart(document.querySelector(select.containerOf.cart)); 
-=======
-      thisApp.cart = new Cart(document.querySelector(select.containerOf.cart)); // Zainicjowanie koszyka
->>>>>>> 0a7ba1cad28c8f2be8e79d32b1fba4b611bd0766
     },
 
     initData: function () {
@@ -507,16 +491,12 @@
         });
 
       console.log('thisApp.data', JSON.stringify(thisApp.data));
-<<<<<<< HEAD
 
             },
     
    
  
 
-=======
-    },
->>>>>>> 0a7ba1cad28c8f2be8e79d32b1fba4b611bd0766
 
     initMenu: function () {
       const thisApp = this;
@@ -526,7 +506,6 @@
     }
     
   };
-<<<<<<< HEAD
   document.addEventListener('DOMContentLoaded', function () {
   const orderForm = document.querySelector('.cart__order');
 
@@ -556,8 +535,6 @@
 });
   
   
-=======
->>>>>>> 0a7ba1cad28c8f2be8e79d32b1fba4b611bd0766
 
   app.init();
 }
