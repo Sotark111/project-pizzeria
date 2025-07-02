@@ -1,10 +1,9 @@
-/* Error: Undefined variable.
- *    ,
- * 86 |       background: $color-success;
- *    |                   ^^^^^^^^^^^^^^
- *    '
- *   src\sass\partials\_booking.scss 86:19  @import
- *   src\sass\style.scss 10:9               root stylesheet */
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 2 | @import 'settings/variables';
+ *   |         ^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   src\sass\style.scss 2:9  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -14,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a    \2577 \a 86 \2502        background: $color-success;\d\a    \2502                    ^^^^^^^^^^^^^^\a    \2575 \a   src\\sass\\partials\\_booking.scss 86:19  @import\a   src\\sass\\style.scss 10:9               root stylesheet";
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 2 \2502  @import 'settings/variables';\d\a   \2502          ^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   src\\sass\\style.scss 2:9  root stylesheet";
 }

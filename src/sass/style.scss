@@ -1,3 +1,8 @@
+
+@import 'settings/variables';
+@import 'tools/mixins';
+
+
 @import 'partials/settings';
 @import 'partials/typography';
 @import 'partials/global';
@@ -5,6 +10,5 @@
 
 @import 'partials/header';
 @import 'partials/cart';
-
 @import 'partials/product';
 @import 'partials/booking';
