@@ -77,9 +77,9 @@ import AmountWidget from './AmountWidget.js';
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
       
 
-      thisProduct.amountWidget.input.addEventListener('change', function () {
-        thisProduct.processOrder();
-      });
+      thisProduct.amountWidget.dom.input.addEventListener('change', function () {
+  thisProduct.processOrder();
+});
     }
 
     processOrder() {
