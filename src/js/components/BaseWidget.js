@@ -8,7 +8,7 @@ class BaseWidget {
     thisWidget.value = initialValue;
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector('input');
 
-    thisWidget.setValue(thisWidget.value);
+   
   }
 
   setValue(value) {
