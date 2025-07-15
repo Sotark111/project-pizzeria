@@ -1,4 +1,5 @@
-import { select, templates } from '../settings.js';
+import { select, templates, settings } from '../settings.js';
+import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
@@ -8,6 +9,67 @@ class Booking {
     const thisBooking = this;
     thisBooking.render(element);
     thisBooking.initWidgets();
+    thisBooking.getData();
+  }
+
+  getData() { 
+    const thisBooking = this;
+
+    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
+    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+
+
+
+    const params = { 
+      booking: [
+        startDateParam,
+        endDateParam,
+      ],
+      eventsCurrent: [
+        settings.db.notRepeatParam,
+        startDateParam,
+        endDateParam,
+
+
+      ],
+      eventsRepeat: [
+         settings.db.repeatParam,
+         endDateParam,
+
+      ],
+
+    };
+
+
+    const urls = { 
+  bookings:      settings.db.url + '/' + settings.db.bookings 
+                                     + '?' + params.booking.join('&'), 
+  eventsCurrent: settings.db.url + '/' + settings.db.events  
+                                     + '?' + params.eventsCurrent.join('&'),
+  eventsRepeat:  settings.db.url + '/' + settings.db.events  
+                                     + '?' + params.eventsRepeat.join('&'), 
+};
+    Promise.all([
+    fetch(urls.booking),
+    fetch(urls.eventsCurrent),
+    fetch(urls.eventsRepeat),
+    ])
+    .then(function(allResponses) { 
+      const bookingsRespone = allResponses[0];
+      const eventsCurrentRespone = allResponses[1];
+      const eventsRepeatRespone = allResponses[2];
+      return Promise.all([
+        bookingsRespone.json(),
+        eventsCurrentRespone.json(),
+        eventsRepeatRespone.json(),
+      ]);
+    })
+    .then(function([bookings, eventsCurrent, eventsRepeat]){ 
+      console.log( bookings);
+      console.log(eventsCurrent);
+      console.log( eventsRepeat);
+      
+    });
   }
 
   render(element) {
