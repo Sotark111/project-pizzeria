@@ -10,6 +10,8 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
+    this.selectedTable = null;
+
   }
 
   getData() { 
@@ -115,12 +117,44 @@ class Booking {
     thisBooking.booked[date][hourBlock].push(table);
   }
 }
+
+tableClickHandler(event) { 
+  const thisBooking = this;
+  const clickedElement = event.target.closest('.table');
+  if(!clickedElement) return;
+
+  if (clickedElement.classList.contains(classNames.booking.tableBooked)) { 
+    alert('ten stolik jest zajety!');
+    return;
+  }
+
+  if (clickedElement.classList.contains('selected')) { 
+    clickedElement.classList.remove('selected');
+    thisBooking.selectedTable = null; 
+    return;
+  }
+
+  const previouslySelected = thisBooking.dom.tablesWrapper.querySelector('.table.selected'); 
+  if (previouslySelected) { 
+    previouslySelected.classList.remove('selected');
+  }
+
+  clickedElement.classList.add('selected');
+  thisBooking.selectedTable = clickedElement.getAttribute('data-table');
+  
+  console.log('Klik w stolik:', event.target);
+}
   updateDOM(){ 
     const thisBooking = this; 
 
     thisBooking.date = thisBooking.datePicker.value; 
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value); 
 
+    const selected = thisBooking.dom.tablesWrapper.querySelector('.table.selected');
+      if (selected) {
+        selected.classList.remove('selected');
+        thisBooking.selectedTable = null;
+      }
     let allAvailabe = false;
 
     if (
@@ -166,6 +200,8 @@ class Booking {
     thisBooking.dom.hourPickerWrapper = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+thisBooking.dom.tablesWrapper = thisBooking.dom.wrapper.querySelector(select.booking.tablesWrapper);
+
   }
 
   initWidgets() {
@@ -187,7 +223,11 @@ class Booking {
 
     thisBooking.dom.hoursAmount.addEventListener('updated', () => {
     });
-  }
+    thisBooking.dom.tablesWrapper.addEventListener('click', (event) => {
+  thisBooking.tableClickHandler(event);
+});
 }
+}
+
 
 export default Booking;

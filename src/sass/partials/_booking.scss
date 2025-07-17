@@ -193,6 +193,10 @@
       top: 180px;
     }
   }
+  .floor-plan .table.selected {
+  background-color: #00ff00 !important;
+}
+
   
   .booking-options {
     @include flex(row, flex-start, space-between);
