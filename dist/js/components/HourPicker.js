@@ -13,6 +13,10 @@ class HourPicker extends BaseWidget {
     thisWidget.initPlugin();
 
     thisWidget.setValue(thisWidget.dom.input.value);
+    
+    this.dom.input.addEventListener('change', () => {
+  this.value = this.dom.input.value;
+});
   }
 
   initPlugin(){
