@@ -266,14 +266,25 @@
   "bookings": [
     {
       "date": "2025-07-23",
-      "hour": "14.5",
+      "hour": "12",
       "table": 1,
       "duration": 1,
       "ppl": 1,
       "starters": [],
-      "phone": "sad",
-      "address": "sad",
+      "phone": "z",
+      "address": "s",
       "id": 1
+    },
+    {
+      "date": "2025-07-23",
+      "hour": "12:00",
+      "table": 1,
+      "duration": 1,
+      "ppl": 1,
+      "starters": [],
+      "phone": "z",
+      "address": "s",
+      "id": 2
     }
   ]
 }
