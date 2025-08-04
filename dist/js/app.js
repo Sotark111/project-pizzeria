@@ -11,10 +11,8 @@ const app = {
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
-    // Pobierz id strony z hasha (format #/pageId)
     const idFromHash = window.location.hash.replace('#/', '');
 
-    // Sprawdź, czy istnieje strona o takim id, jeśli nie -> home
     let pageMatchingHash =
       idFromHash && [...thisApp.pages].some(p => p.id === idFromHash)
         ? idFromHash
@@ -31,7 +29,6 @@ const app = {
       });
     }
 
-    // Nasłuchiwanie zmiany hasha (np. ręczna zmiana przez użytkownika)
     window.addEventListener('hashchange', () => {
       const newPageId = window.location.hash.replace('#/', '') || 'home';
       thisApp.activatePage(newPageId);
