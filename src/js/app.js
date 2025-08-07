@@ -11,28 +11,29 @@ const app = {
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
-    const idFromHash = window.location.hash.replace('#/', '');
+    const idFromHash = window.location.hash.replace(/^#\/?/, '') || 'home';
 
-    let pageMatchingHash =
-      idFromHash && [...thisApp.pages].some(p => p.id === idFromHash)
-        ? idFromHash
-        : 'home';
+    let pageMatchingHash = thisApp.pages[0].id;
+
+    for (let page of thisApp.pages) {
+      if (page.id === idFromHash) {
+        pageMatchingHash = page.id;
+        break;
+      }
+    }
 
     thisApp.activatePage(pageMatchingHash);
 
     for (let link of thisApp.navLinks) {
       link.addEventListener('click', function (event) {
         event.preventDefault();
-        const id = this.getAttribute('href').replace('#/', '');
+        const clickedElement = this;
+        const id = clickedElement.getAttribute('href').replace('#', '');
+
         thisApp.activatePage(id);
         window.location.hash = '#/' + id;
       });
     }
-
-    window.addEventListener('hashchange', () => {
-      const newPageId = window.location.hash.replace('#/', '') || 'home';
-      thisApp.activatePage(newPageId);
-    });
   },
 
   activatePage: function (pageId) {
@@ -45,83 +46,70 @@ const app = {
     for (let link of thisApp.navLinks) {
       link.classList.toggle(
         classNames.nav.active,
-        link.getAttribute('href') === '#/' + pageId
+        link.getAttribute('href') === '#'+pageId
       );
     }
   },
 
-  initBooking: function () {
+  initMenu: function () {
     const thisApp = this;
-    const bookingContainer = document.querySelector(select.containerOf.booking);
-    if (bookingContainer) {
-      thisApp.booking = new Booking(bookingContainer);
-    }
-  },
 
-  initHome: function () {
-    const thisApp = this;
-    const homeContainer = document.querySelector(select.containerOf.home);
-    if (homeContainer) {
-      thisApp.home = new Home(homeContainer);
-    }
-  },
-
-  initCart: function () {
-    const thisApp = this;
-    thisApp.cart = new Cart(document.querySelector(select.containerOf.cart));
-
-    const orderForm = document.querySelector(select.cart.form);
-    thisApp.productList = document.querySelector(select.containerOf.menu);
-
-    if (thisApp.productList) {
-      thisApp.productList.addEventListener('add-to-cart', function (event) {
-        thisApp.cart.add(event.detail.product);
-      });
-    }
-
-    if (orderForm) {
-      orderForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const phone = orderForm.querySelector(select.cart.phone).value;
-        const address = orderForm.querySelector(select.cart.address).value;
-        if (!phone || !address) {
-          alert('Uzupełnij numer telefonu i adres!');
-          return;
-        }
-        console.log('Zamówienie złożone!');
-        orderForm.reset();
-      });
+    for (let productData in thisApp.data.products) {
+      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
   },
 
   initData: function () {
     const thisApp = this;
-    thisApp.data = {};
+
     const url = settings.db.url + '/' + settings.db.products;
+
     fetch(url)
-      .then(raw => raw.json())
-      .then(parsed => {
-        thisApp.data.products = parsed;
+      .then((rawResponse) => rawResponse.json())
+      .then((parsedResponse) => {
+        thisApp.data = {};
+        thisApp.data.products = parsedResponse;
+
         thisApp.initMenu();
       });
   },
 
-  initMenu: function () {
+  initCart: function () {
     const thisApp = this;
-    for (let productData of thisApp.data.products) {
-      new Product(productData.id, productData);
-    }
+
+    const cartElem = document.querySelector(select.containerOf.cart);
+    thisApp.cart = new Cart(cartElem);
+
+    thisApp.productList = document.querySelector(select.containerOf.menu);
+
+    thisApp.productList.addEventListener('add-to-cart', function (event) {
+      thisApp.cart.add(event.detail.product);
+    });
+  },
+
+  initBooking: function () {
+    const thisApp = this;
+
+    const bookingContainer = document.querySelector(select.containerOf.booking);
+    thisApp.booking = new Booking(bookingContainer);
+  },
+
+  initHome: function () {
+    const thisApp = this;
+
+    const homeContainer = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(homeContainer);
   },
 
   init: function () {
     const thisApp = this;
+
+    thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
-    thisApp.initPages();
-    thisApp.initHome();
     thisApp.initBooking();
+    thisApp.initHome();
   },
 };
 
 app.init();
- 

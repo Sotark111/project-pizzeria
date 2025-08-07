@@ -44,7 +44,6 @@ class Home {
   }
 
   initWidgets() {
-    // Inicjalizacja Flickity
     new Flickity(this.dom.carousel, {
       cellAlign: 'left',
       contain: true,

@@ -10,7 +10,7 @@ export const select = {
     cart: '#cart',
     home: '#home .home-template',
     pages: '#pages',                              
-    booking: '.booking-wrapper',                  
+    booking: '#booking',                  
   },
  
   all: {
