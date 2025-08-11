@@ -202,76 +202,7 @@
       }
     }
   ],
-  "orders": [
-    {
-      "address": "",
-      "phone": "",
-      "products": [],
-      "id": 1
-    },
-    {
-      "address": "",
-      "phone": "",
-      "products": [],
-      "id": 2
-    },
-    {
-      "address": "rfsdjuyrkolf 12",
-      "phone": "5301234",
-      "products": [],
-      "id": 3
-    },
-    {
-      "address": "",
-      "phone": "",
-      "products": [],
-      "id": 4
-    },
-    {
-      "address": "asd",
-      "phone": "asd",
-      "products": [],
-      "id": 5
-    },
-    {
-      "address": "asd",
-      "phone": "asd",
-      "totalPrice": 29,
-      "subtotalPrice": 9,
-      "totalNumber": 1,
-      "deliveryFee": 20,
-      "products": [
-        {
-          "id": "cake",
-          "name": "Zio Stefano's Doughnut",
-          "amount": 1,
-          "price": 9,
-          "priceSingle": 9,
-          "params": {}
-        }
-      ],
-      "id": 6
-    },
-    {
-      "address": "asd",
-      "phone": "asd",
-      "totalPrice": 29,
-      "subtotalPrice": 9,
-      "totalNumber": 1,
-      "deliveryFee": 20,
-      "products": [
-        {
-          "id": "cake",
-          "name": "Zio Stefano's Doughnut",
-          "amount": 1,
-          "price": 9,
-          "priceSingle": 9,
-          "params": {}
-        }
-      ],
-      "id": 7
-    }
-  ],
+  "orders": [],
   "events": [
     {
       "id": 1,
@@ -332,5 +263,17 @@
       ]
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "date": "2025-08-11",
+      "hour": "12",
+      "table": 1,
+      "duration": 1,
+      "ppl": 1,
+      "starters": [],
+      "phone": "",
+      "address": "",
+      "id": 1
+    }
+  ]
 }
